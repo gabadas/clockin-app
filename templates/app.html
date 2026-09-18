@@ -1,190 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-<style>*{font-family:'Inter',sans-serif}</style>
-</head>
-<body class="bg-[#F6F5F2] min-h-screen">
-<div class="max-w-[1100px] mx-auto p-4 md:p-6">
-  <!-- HEADER -->
-  <div class="bg-white rounded-[20px] p-5 flex justify-between items-center shadow-sm">
-    <div><h1 class="font-black text-[18px]">Ponto.</h1><p class="text-[11px] text-gray-400 -mt-1">{{ user.email }} • {{ user.tipo }}</p></div>
-    <div class="flex gap-2">
-      <button id="btnUsuarios" class="hidden bg-black text-white text-[12px] font-bold px-4 py-2 rounded-full">USUÁRIOS</button>
-      <a href="/logout" class="bg-gray-100 text-[12px] font-bold px-4 py-2 rounded-full">SAIR</a>
-    </div>
-  </div>
-
-  <!-- CONTROLES -->
-  <div class="mt-4 bg-white rounded-[20px] p-5 shadow-sm">
-    <div class="flex flex-wrap gap-3 items-center">
-      <input type="month" id="inputMes" class="bg-gray-100 rounded-full px-4 py-2 text-[13px] font-bold outline-none">
-      <div id="listaUsuarios" class="hidden flex gap-2 flex-wrap"></div>
-      <span id="infoTotal" class="ml-auto text-[11px] font-bold text-gray-400"></span>
-    </div>
-  </div>
-
-  <!-- CALENDÁRIO -->
-  <div id="gridDias" class="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3"></div>
-
-  <!-- MODAL -->
-  <div id="modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-[24px] w-full max-w-[360px] p-6 shadow-2xl">
-      <div class="flex justify-between items-center"><h3 class="font-black text-[18px]">Dia <span id="modalDia"></span></h3><button id="fecharModal" class="bg-gray-100 w-8 h-8 rounded-full font-bold">×</button></div>
-      <p id="modalDataFull" class="text-[11px] text-gray-400 mt-1"></p>
-
-      <div class="mt-5 space-y-3">
-        <div><label class="text-[10px] font-black tracking-widest text-gray-400">ENTRADA</label><input id="inpEntrada" type="time" class="w-full mt-1 p-3.5 rounded-xl border border-gray-200 bg-white text-black outline-none focus:border-black"></div>
-        <div class="grid grid-cols-2 gap-3">
-          <div><label class="text-[10px] font-black tracking-widest text-gray-400">ALMOÇO SAÍDA</label><input id="inpAlmocoSaida" type="time" class="w-full mt-1 p-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-black"></div>
-          <div><label class="text-[10px] font-black tracking-widest text-gray-400">ALMOÇO VOLTA</label><input id="inpAlmocoVolta" type="time" class="w-full mt-1 p-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-black"></div>
-        </div>
-        <div><label class="text-[10px] font-black tracking-widest text-gray-400">SAÍDA</label><input id="inpSaida" type="time" class="w-full mt-1 p-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-black"></div>
-      </div>
-
-      <div class="mt-5 flex gap-2">
-        <button id="btnExcluir" class="bg-red-50 text-red-600 font-bold text-[12px] px-4 py-3 rounded-xl flex-1">EXCLUIR</button>
-        <button id="btnSalvar" class="bg-black text-white font-bold text-[12px] px-4 py-3 rounded-xl flex-[2]">SALVAR PONTO</button>
-      </div>
-      <p id="modalMsg" class="text-[11px] text-center mt-3"></p>
-    </div>
-  </div>
-</div>
-
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"><style>*{font-family:'Inter',sans-serif}</style></head>
+<body class="bg-[#F6F5F2] min-h-screen"><div class="max-w-[1100px] mx-auto p-4 md:p-6">
+<div class="bg-white rounded-[20px] p-5 flex justify-between items-center shadow-sm"><div><h1 class="font-black text-[18px]">Ponto.</h1><p class="text-[11px] text-gray-400 -mt-1">{{ user.email }}</p></div><a href="/logout" class="bg-gray-100 text-[12px] font-bold px-4 py-2 rounded-full">SAIR</a></div>
+<div class="mt-4 bg-white rounded-[20px] p-5 shadow-sm flex items-center"><input type="month" id="inputMes" class="bg-gray-100 rounded-full px-4 py-2 text-[13px] font-bold outline-none"><span id="infoTotal" class="ml-auto text-[11px] font-bold text-gray-400"></span></div>
+<div id="gridDias" class="mt-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3"></div>
+<div id="modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center p-4 z-50"><div class="bg-white rounded-[24px] w-full max-w-[360px] p-6 shadow-2xl"><div class="flex justify-between items-center"><h3 class="font-black text-[18px]">Dia <span id="modalDia"></span></h3><button id="fecharModal" class="bg-gray-100 w-8 h-8 rounded-full font-bold">×</button></div><p id="modalDataFull" class="text-[11px] text-gray-400 mt-1"></p>
+<div class="mt-5 space-y-3"><div><label class="text-[10px] font-black tracking-widest text-gray-400">ENTRADA</label><input id="inpEntrada" type="time" class="w-full mt-1 p-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-black"></div><div class="grid grid-cols-2 gap-3"><div><label class="text-[10px] font-black tracking-widest text-gray-400">ALMOÇO SAÍDA</label><input id="inpAlmocoSaida" type="time" class="w-full mt-1 p-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-black"></div><div><label class="text-[10px] font-black tracking-widest text-gray-400">ALMOÇO VOLTA</label><input id="inpAlmocoVolta" type="time" class="w-full mt-1 p-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-black"></div></div><div><label class="text-[10px] font-black tracking-widest text-gray-400">SAÍDA</label><input id="inpSaida" type="time" class="w-full mt-1 p-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-black"></div></div>
+<div class="mt-5 flex gap-2"><button id="btnExcluir" class="bg-red-50 text-red-600 font-bold text-[12px] px-4 py-3 rounded-xl flex-1">EXCLUIR</button><button id="btnSalvar" class="bg-black text-white font-bold text-[12px] px-4 py-3 rounded-xl flex-[2]">SALVAR</button></div><p id="modalMsg" class="text-[11px] text-center mt-3"></p></div></div></div>
 <script>
-const CURRENT_USER = { id: {{ user.id }}, email: "{{ user.email }}", tipo: "{{ user.tipo }}" };
-const IS_MASTER = {{ 'true' if is_master else 'false' }};
-let UID_ATIVO = CURRENT_USER.id;
-let EMAIL_ATIVO = CURRENT_USER.email;
+const CURRENT_USER = { id: {{ user.id }}, email: "{{ user.email }}" };
 let MES_ATIVO = new Date().toISOString().slice(0,7);
-let CACHE_PONTOS = {};
-let CACHE_BLOQUEIOS = {};
-let DIA_ATIVO = null;
-
-const inputMes = document.getElementById('inputMes');
-const gridDias = document.getElementById('gridDias');
-const modal = document.getElementById('modal');
-
-function calcHoras(e, as, av, s){
-  if(!e ||!s) return "-";
-  const toM = t => { const [h,m]=t.split(':').map(Number); return h*60+m; };
-  let total = toM(s)-toM(e);
-  if(as && av) total -= (toM(av)-toM(as));
-  if(total<0) return "-";
-  const h=Math.floor(total/60), m=total%60;
-  return `${h}h ${String(m).padStart(2,'0')}m`;
-}
-
-async function fetchPontos(){
-  const res = await fetch(`/api/pontos?uid=${UID_ATIVO}&mes=${MES_ATIVO}`);
-  CACHE_PONTOS = await res.json();
-  renderGrid();
-}
-
-async function fetchBloqueios(){
-  const res = await fetch('/api/bloqueios');
-  const data = await res.json();
-  CACHE_BLOQUEIOS = data;
-}
-
-function renderGrid(){
-  gridDias.innerHTML = '';
-  const [y,m] = MES_ATIVO.split('-').map(Number);
-  const diasNoMes = new Date(y,m,0).getDate();
-  let totalMin = 0;
-
-  for(let d=1; d<=diasNoMes; d++){
-    const p = CACHE_PONTOS[String(d)];
-    const dataISO = `${MES_ATIVO}-${String(d).padStart(2,'0')}`;
-    const isBloq = CACHE_BLOQUEIOS[dataISO]?.bloqueado;
-    const hasPonto = p && (p.entrada || p.saida);
-
-    const card = document.createElement('div');
-    card.className = `bg-white rounded-[18px] p-4 cursor-pointer shadow-sm border-2 ${hasPonto? 'border-black' : 'border-transparent'} ${isBloq? 'opacity-40' : ''} hover:scale-[1.02] transition`;
-    card.innerHTML = `
-      <div class="flex justify-between"><span class="font-black text-[14px]">${String(d).padStart(2,'0')}</span><span class="text-[10px] ${hasPonto?'bg-black text-white':'bg-gray-100 text-gray-400'} px-2 py-1 rounded-full font-bold">${hasPonto? calcHoras(p.entrada,p.almocoSaida,p.almocoVolta,p.saida) : (isBloq?'BLOQ':'-')}</span></div>
-      <div class="mt-3 text-[11px] leading-[1.2] text-gray-600">
-        ${p?.entrada? `E: ${p.entrada}<br>` : ''}${p?.almocoSaida? `A↓ ${p.almocoSaida}<br>` : ''}${p?.almocoVolta? `A↑ ${p.almocoVolta}<br>` : ''}${p?.saida? `S: ${p.saida}` : (hasPonto?'':'<span class="text-gray-300">Sem registro</span>')}
-      </div>
-      ${isBloq? `<p class="text-[9px] text-red-500 font-bold mt-2">${CACHE_BLOQUEIOS[dataISO].motivo||'Bloqueado'}</p>` : ''}
-    `;
-    card.onclick = () => abrirModal(d);
-    gridDias.appendChild(card);
-
-    if(hasPonto && p.entrada && p.saida){
-      const toM = t => { const [h,mi]=t.split(':').map(Number); return h*60+mi; };
-      let tot = toM(p.saida)-toM(p.entrada);
-      if(p.almocoSaida && p.almocoVolta) tot -= (toM(p.almocoVolta)-toM(p.almocoSaida));
-      if(tot>0) totalMin+=tot;
-    }
-  }
-  document.getElementById('infoTotal').innerText = `TOTAL: ${Math.floor(totalMin/60)}h ${String(totalMin%60).padStart(2,'0')}m`;
-}
-
-function abrirModal(dia){
-  DIA_ATIVO = dia;
-  const p = CACHE_PONTOS[String(dia)] || {};
-  document.getElementById('modalDia').innerText = String(dia).padStart(2,'0');
-  document.getElementById('modalDataFull').innerText = `${String(dia).padStart(2,'0')}/${MES_ATIVO.slice(5,7)}/${MES_ATIVO.slice(0,4)} • ${EMAIL_ATIVO}`;
-  document.getElementById('inpEntrada').value = p.entrada || '';
-  document.getElementById('inpAlmocoSaida').value = p.almocoSaida || '';
-  document.getElementById('inpAlmocoVolta').value = p.almocoVolta || '';
-  document.getElementById('inpSaida').value = p.saida || '';
-  document.getElementById('modalMsg').innerText = '';
-  modal.classList.remove('hidden'); modal.classList.add('flex');
-}
+let CACHE_PONTOS = {}; let DIA_ATIVO = null;
+const inputMes=document.getElementById('inputMes'), gridDias=document.getElementById('gridDias'), modal=document.getElementById('modal');
+function calcHoras(e,as,av,s){ if(!e||!s) return "-"; const toM=t=>{const[h,m]=t.split(':').map(Number);return h*60+m;}; let total=toM(s)-toM(e); if(as&&av) total-=(toM(av)-toM(as)); if(total<0) return "-"; const h=Math.floor(total/60), m=total%60; return `${h}h ${String(m).padStart(2,'0')}m`; }
+async function fetchPontos(){ const res=await fetch(`/api/pontos?uid=${CURRENT_USER.id}&mes=${MES_ATIVO}`); CACHE_PONTOS=await res.json(); renderGrid(); }
+function renderGrid(){ gridDias.innerHTML=''; const [y,m]=MES_ATIVO.split('-').map(Number); const diasNoMes=new Date(y,m,0).getDate(); let totalMin=0; for(let d=1; d<=diasNoMes; d++){ const p=CACHE_PONTOS[String(d)]; const hasPonto=p&&(p.entrada||p.saida); const card=document.createElement('div'); card.className=`bg-white rounded-[18px] p-4 cursor-pointer shadow-sm border-2 ${hasPonto?'border-black':'border-transparent'} hover:scale-[1.02] transition`; card.innerHTML=`<div class="flex justify-between"><span class="font-black text-[14px]">${String(d).padStart(2,'0')}</span><span class="text-[10px] ${hasPonto?'bg-black text-white':'bg-gray-100 text-gray-400'} px-2 py-1 rounded-full font-bold">${hasPonto?calcHoras(p.entrada,p.almocoSaida,p.almocoVolta,p.saida):'-'}</span></div><div class="mt-3 text-[11px] leading-[1.2] text-gray-600">${p?.entrada?`E: ${p.entrada}<br>`:''}${p?.almocoSaida?`A↓ ${p.almocoSaida}<br>`:''}${p?.almocoVolta?`A↑ ${p.almocoVolta}<br>`:''}${p?.saida?`S: ${p.saida}`:(hasPonto?'':'<span class="text-gray-300">Sem registro</span>')}</div>`; card.onclick=()=>abrirModal(d); gridDias.appendChild(card); if(hasPonto&&p.entrada&&p.saida){ const toM=t=>{const[h,mi]=t.split(':').map(Number);return h*60+mi;}; let tot=toM(p.saida)-toM(p.entrada); if(p.almocoSaida&&p.almocoVolta) tot-=(toM(p.almocoVolta)-toM(p.almocoSaida)); if(tot>0) totalMin+=tot; } } document.getElementById('infoTotal').innerText=`TOTAL: ${Math.floor(totalMin/60)}h ${String(totalMin%60).padStart(2,'0')}m`; }
+function abrirModal(dia){ DIA_ATIVO=dia; const p=CACHE_PONTOS[String(dia)]||{}; document.getElementById('modalDia').innerText=String(dia).padStart(2,'0'); document.getElementById('modalDataFull').innerText=`${String(dia).padStart(2,'0')}/${MES_ATIVO.slice(5,7)}/${MES_ATIVO.slice(0,4)}`; document.getElementById('inpEntrada').value=p.entrada||''; document.getElementById('inpAlmocoSaida').value=p.almocoSaida||''; document.getElementById('inpAlmocoVolta').value=p.almocoVolta||''; document.getElementById('inpSaida').value=p.saida||''; document.getElementById('modalMsg').innerText=''; modal.classList.remove('hidden'); modal.classList.add('flex'); }
 function fecharModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); }
-
-document.getElementById('fecharModal').onclick = fecharModal;
-modal.onclick = (e)=>{ if(e.target===modal) fecharModal(); };
-
-document.getElementById('btnSalvar').onclick = async () => {
-  const body = {
-    uid: UID_ATIVO, email: EMAIL_ATIVO, mes: MES_ATIVO, dia: DIA_ATIVO,
-    entrada: document.getElementById('inpEntrada').value || null,
-    almocoSaida: document.getElementById('inpAlmocoSaida').value || null,
-    almocoVolta: document.getElementById('inpAlmocoVolta').value || null,
-    saida: document.getElementById('inpSaida').value || null
-  };
-  const res = await fetch('/api/pontos',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(res.ok){ CACHE_PONTOS[String(DIA_ATIVO)] = body; renderGrid(); fecharModal(); }
-  else document.getElementById('modalMsg').innerText = 'Erro ao salvar';
-};
-
-document.getElementById('btnExcluir').onclick = async () => {
-  if(!confirm('Excluir ponto do dia?')) return;
-  const res = await fetch('/api/pontos',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:UID_ATIVO, mes:MES_ATIVO, dia:DIA_ATIVO})});
-  if(res.ok){ delete CACHE_PONTOS[String(DIA_ATIVO)]; renderGrid(); fecharModal(); }
-};
-
-async function loadUsuarios(){
-  if(!IS_MASTER) return;
-  const res = await fetch('/api/usuarios');
-  if(!res.ok) return;
-  const users = await res.json();
-  const lista = document.getElementById('listaUsuarios');
-  const btn = document.getElementById('btnUsuarios');
-  btn.classList.remove('hidden'); lista.classList.remove('hidden');
-  lista.innerHTML = '';
-  users.forEach(u=>{
-    const b = document.createElement('button');
-    b.className = `text-[11px] font-bold px-3 py-1.5 rounded-full border ${u.uid===UID_ATIVO?'bg-black text-white border-black':'bg-white border-gray-200'}`;
-    b.innerText = u.email;
-    b.onclick = ()=>{ UID_ATIVO=u.uid||u.id; EMAIL_ATIVO=u.email; lista.querySelectorAll('button').forEach(x=>x.className='text-[11px] font-bold px-3 py-1.5 rounded-full border bg-white border-gray-200'); b.className='text-[11px] font-bold px-3 py-1.5 rounded-full border bg-black text-white border-black'; fetchPontos(); };
-    lista.appendChild(b);
-  });
-}
-
-inputMes.value = MES_ATIVO;
-inputMes.onchange = ()=>{ MES_ATIVO=inputMes.value; fetchPontos(); };
-
-(async()=>{
-  await fetchBloqueios();
-  await fetchPontos();
-  await loadUsuarios();
-})();
-</script>
-</body>
-</html>
+document.getElementById('fecharModal').onclick=fecharModal; modal.onclick=(e)=>{ if(e.target===modal) fecharModal(); };
+document.getElementById('btnSalvar').onclick=async()=>{ const body={uid:CURRENT_USER.id, mes:MES_ATIVO, dia:DIA_ATIVO, entrada:document.getElementById('inpEntrada').value||null, almocoSaida:document.getElementById('inpAlmocoSaida').value||null, almocoVolta:document.getElementById('inpAlmocoVolta').value||null, saida:document.getElementById('inpSaida').value||null}; const res=await fetch('/api/pontos',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); if(res.ok){ CACHE_PONTOS[String(DIA_ATIVO)]=body; renderGrid(); fecharModal(); } };
+document.getElementById('btnExcluir').onclick=async()=>{ if(!confirm('Excluir?')) return; const res=await fetch('/api/pontos',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid:CURRENT_USER.id, mes:MES_ATIVO, dia:DIA_ATIVO})}); if(res.ok){ delete CACHE_PONTOS[String(DIA_ATIVO)]; renderGrid(); fecharModal(); } };
+inputMes.value=MES_ATIVO; inputMes.onchange=()=>{ MES_ATIVO=inputMes.value; fetchPontos(); }; fetchPontos();
+</script></body></html>
