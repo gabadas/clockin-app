@@ -5,20 +5,21 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", "ponto-super-secret-2026")
+app.secret_key = os.getenv("SECRET_KEY", "ponto-secret-2026")
 
-db_url = os.getenv("DATABASE_URL")
+# Vercel cria varias vars, a gente tenta todas
+db_url = os.getenv("POSTGRES_URL") or os.getenv("POSTGRES_PRISMA_URL") or os.getenv("DATABASE_URL") or os.getenv("POSTGRES_URL_NON_POOLING")
+
 if not db_url:
-    # local fallback
     db_url = "sqlite:///local.db"
+    print("AVISO: sem POSTGRES_URL, usando sqlite local")
+
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
-if "postgresql" in db_url and "sslmode" not in db_url:
-    db_url += "?sslmode=require" if "?" not in db_url else "&sslmode=require"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True, "pool_recycle": 300}
 
 db = SQLAlchemy(app)
 
@@ -40,7 +41,11 @@ class Ponto(db.Model):
     saida = db.Column(db.String(5))
 
 with app.app_context():
-    db.create_all()
+    try:
+        db.create_all()
+        print("Tabelas criadas com sucesso!")
+    except Exception as e:
+        print(f"Erro ao criar tabelas: {e}")
 
 def login_required(f):
     @wraps(f)
@@ -80,16 +85,14 @@ def logout(): session.clear(); return redirect('/login')
 
 @app.route('/')
 @login_required
-def index():
-    return render_template('app.html', user=session['user'])
+def index(): return render_template('app.html', user=session['user'])
 
 @app.route('/api/pontos', methods=['GET'])
 @login_required
 def get_pontos():
     uid = int(request.args.get('uid')); mes = request.args.get('mes')
     pontos = Ponto.query.filter_by(uid=uid, mes=mes).all()
-    result = {str(p.dia): {'entrada':p.entrada,'almocoSaida':p.almocoSaida,'almocoVolta':p.almocoVolta,'saida':p.saida,'dia':p.dia,'mes':p.mes,'uid':p.uid} for p in pontos}
-    return jsonify(result)
+    return jsonify({str(p.dia): {'entrada':p.entrada,'almocoSaida':p.almocoSaida,'almocoVolta':p.almocoVolta,'saida':p.saida} for p in pontos})
 
 @app.route('/api/pontos', methods=['POST'])
 @login_required
@@ -111,7 +114,6 @@ def save_ponto():
 @login_required
 def delete_ponto():
     d = request.json
-    doc_id = f"{d['uid']}_{d['mes']}_{int(d['dia'])}"
-    p = Ponto.query.get(doc_id)
+    p = Ponto.query.get(f"{d['uid']}_{d['mes']}_{int(d['dia'])}")
     if p: db.session.delete(p); db.session.commit()
     return jsonify({'ok':True})
