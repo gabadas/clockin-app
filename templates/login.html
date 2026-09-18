@@ -1,0 +1,21 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-black min-h-screen flex items-center justify-center p-4">
+<div class="bg-white rounded-[24px] p-8 w-full max-w-[380px]"><h1 class="font-black text-2xl">Controle de Ponto</h1><p class="text-gray-400 text-sm mt-1">Supabase Edition</p>
+<input id="email" type="email" placeholder="seu@email.com" class="w-full mt-6 p-3.5 rounded-xl border bg-gray-50 outline-none focus:border-black">
+<input id="senha" type="password" placeholder="senha" class="w-full mt-3 p-3.5 rounded-xl border bg-gray-50 outline-none focus:border-black">
+<button id="btnLogin" class="w-full mt-4 bg-black text-white p-3.5 rounded-xl font-bold">Entrar</button>
+<button id="btnReg" class="w-full mt-2 bg-white border border-black text-black p-3.5 rounded-xl font-bold">Criar conta</button>
+<p id="msg" class="text-xs text-center mt-3"></p><p class="text-[10px] text-gray-400 mt-4 text-center">Super: gaasbrel@gmail.com / admin123 (troque depois)</p></div>
+<script>
+async function call(url, body){ const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); return {ok:r.ok, data:await r.json()}; }
+document.getElementById('btnLogin').onclick=async()=>{
+  const email=document.getElementById('email').value, senha=document.getElementById('senha').value;
+  const res=await call('/api/login',{email,senha});
+  if(res.ok) location.href='/'; else document.getElementById('msg').innerText=res.data.error;
+};
+document.getElementById('btnReg').onclick=async()=>{
+  const email=document.getElementById('email').value, senha=document.getElementById('senha').value;
+  const res=await call('/api/register',{email,senha});
+  if(res.ok){ document.getElementById('msg').innerText='Conta criada! Agora clica em Entrar'; document.getElementById('msg').className='text-xs text-center mt-3 text-green-600'; }
+  else document.getElementById('msg').innerText=res.data.error;
+};
+</script></body></html>
